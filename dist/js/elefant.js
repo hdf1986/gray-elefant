@@ -36,11 +36,11 @@ class Elefant {
     }), new Rectangle({
       x: 48,
       y: 26,
-      width: 4,
+      width: 8,
       height: 15,
       fill: true,
-      stroke: {l: 3, bl: 3, b: 3},
-      borderRadius: {bl: 3},
+      stroke: {l: 3, bl: 3, b: 3, tl: 3, t: 3, tr: 3},
+      borderRadius: {bl: 3, tl: 3, tr: 3},
       fillStyle: this.color
     }),
     new Rectangle({
@@ -61,6 +61,33 @@ class Elefant {
       stroke: 3,
       borderRadius: 1,
       fillStyle: 'white'
+    }), new Rectangle({
+      x: 60,
+      y: 15,
+      width: 5,
+      height: 1,
+      fill: true,
+      stroke: 1,
+      borderRadius: 1,
+      fillStyle: 'black'
+    }), new Rectangle({
+      x: 60,
+      y: 20,
+      width: 5,
+      height: 1,
+      fill: true,
+      stroke: 1,
+      borderRadius: 1,
+      fillStyle: 'black'
+    }), new Rectangle({
+      x: 60,
+      y: 25,
+      width: 5,
+      height: 1,
+      fill: true,
+      stroke: 1,
+      borderRadius: 1,
+      fillStyle: 'black'
     })
     ];
     this.objects = [
