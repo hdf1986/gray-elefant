@@ -80,7 +80,7 @@ function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
 }
 
 class Rectangle {
-  constructor ({x, y, width, height, fillStyle, borderRadius, fill, stroke}) {
+  constructor ({x, y, width, height, fillStyle, borderRadius, fill, stroke, inverted}) {
     this.x = x;
     this._x = x;
     this.y = y;
@@ -93,7 +93,6 @@ class Rectangle {
     this.borderRadius = borderRadius || 0;
     this.stroke = stroke || {};
     this.fill = typeof fill === 'undefined' ? true : fill;
-    console.log(stroke, this.stroke)
   }
   start () {}
   update () {}

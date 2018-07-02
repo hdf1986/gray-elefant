@@ -16,11 +16,20 @@ const start = (ctx, canvas) => {
 
   const grayElefant = new Elefant({
     x: 90,
-    y: canvas.height * 0.5,
-    color: '#c5e9fb'
+    y: canvas.height * 0.8 - 80,
+    color: 'lightgrey',
+    walking: true
   });
-  
-  ctx.addObject(grayElefant);
+
+  const brownElefant = new Elefant({
+    x: 190,
+    y: canvas.height * 0.8 - 80,
+    color: '#b87e59',
+    mirrored: true,
+    walking: true
+  });
   ctx.addObject(grass);
   ctx.addObject(floor);
+  ctx.addObject(grayElefant);
+  ctx.addObject(brownElefant);
 }
