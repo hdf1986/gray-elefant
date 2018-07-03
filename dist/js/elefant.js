@@ -32,7 +32,7 @@ const mirroredRectangle = (mirrored, obj,args, posRotate = true) => {
       args.stroke[key] = originalStroke[stroke[key]]
     })
   }
-  rect.x = obj.x/10 - args.x - args.width + 25;
+  rect.x = obj.x/10 - args.x - args.width;
 
   return rect;
 }
@@ -45,7 +45,7 @@ class Elefant {
     this.walking = walking;
     this.step = 0;
     this.walkingSpeed = walkingSpeed || 30;
-    this._walkingSpeed = walkingSpeed || 30;
+    this._walkingSpeed = 0;
     this.verticalAcceleration = 0;
     this.verticalSpeed = 0;
     if(!this.walking) this._walkingSpeed = 0;
@@ -54,7 +54,9 @@ class Elefant {
     this.createRects(ctx, canvas);
   }
   mirror(bool) {
+    const oldMirrored = this.mirrored;
     this.mirrored = bool;
+    if(oldMirrored === bool) return;
     this.createRects();
   }
   createRects (ctx, canvas) {
@@ -251,7 +253,7 @@ class Elefant {
     this.verticalSpeed = 1;
     setTimeout(() => {
       this.verticalAcceleration = 0
-    }, 200);
+    }, 400);
   }
   update (ctx, canvas) {
     this.step += this._walkingSpeed;

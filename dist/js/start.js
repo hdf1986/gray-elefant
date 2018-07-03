@@ -35,27 +35,5 @@ const start = (ctx, canvas) => {
   ctx.addObject(ctx.brownElefant);
   ctx.gravityPoint = canvas.height * 0.8 - 80;
 
-  let map = {}; // You could also use an array
-  const onEvent = function(e){
-    e = e || event; // to deal with IE
-    map[e.keyCode] = e.type == 'keydown';
-    if(map['37']) {
-      brownElefant.walking = true
-      brownElefant.mirror(true)
-    }
-
-    if(map['39']) {
-      brownElefant.walking = true
-      brownElefant.mirror(false)
-    }
-    if(map['38']) {
-      brownElefant.jump(ctx, canvas)
-    }
-
-    if(e.type === 'keyup' && (e.keyCode === 39 || e.keyCode === 37)){
-      brownElefant.walking = false;
-    }
-  }
-  // document.addEventListener("keydown", onEvent);
-  // document.addEventListener("keyup", onEvent);
+  
 }
