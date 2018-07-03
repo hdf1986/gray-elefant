@@ -32,22 +32,30 @@ const mirroredRectangle = (mirrored, obj,args, posRotate = true) => {
       args.stroke[key] = originalStroke[stroke[key]]
     })
   }
-  rect.x = obj.x - args.x - args.width;
+  rect.x = obj.x/10 - args.x - args.width + 25;
 
   return rect;
 }
-const walkingSpeed = 30;
-
 class Elefant {
-  constructor ({x, y, color, mirrored, walking}) {
+  constructor ({x, y, color, mirrored, walking, walkingSpeed}) {
     this.x = x;
     this.y = y;
     this.mirrored = mirrored;
     this.color = color;
     this.walking = walking;
     this.step = 0;
+    this.walkingSpeed = walkingSpeed || 30;
+    this._walkingSpeed = walkingSpeed || 30;
+    if(!this.walking) this._walkingSpeed = 0;
   }
   start (ctx, canvas) {
+    this.createRects(ctx, canvas);
+  }
+  mirror(bool) {
+    this.mirrored = bool;
+    this.createRects();
+  }
+  createRects (ctx, canvas) {
     this.body = mirroredRectangle(
       this.mirrored,
       this,
@@ -236,33 +244,39 @@ class Elefant {
     ]
   }
   update (ctx, canvas) {
-    if(this.walking === true) this.step ++;
-    
+    this.step += this._walkingSpeed;
+    if(this.walking === true && this._walkingSpeed !== this.walkingSpeed) {
+      console.log(this._walkingSpeed)
+      this._walkingSpeed = Math.min(this.walkingSpeed, this._walkingSpeed +
+        Math.sqrt(this.walkingSpeed / 10));
+    } else {
+      this._walkingSpeed = Math.max(0, this._walkingSpeed -
+        Math.sqrt(this._walkingSpeed / 10));
+    }
     this.objects.forEach(object => {
       object._x = this.x + object.x
       object._y = this.y + object.y
     })
-    
-    if(!this.walking) return;
 
     const sign = this.mirrored ? 1 : -1;
     const mov = 0.01;
 
+    let rightRandom = this.walking ? Math.max(1.2 * Math.random(), 1) : 1;
+    let leftRandom = this.walking ? Math.max(1.2 * Math.random(), 1) : 1;
+    this.rearLeftLeg._x = this.x + this.rearLeftLeg.x + Math.cos(this.step*mov)/5 * leftRandom * sign * -10;
+    this.rearLeftLeg._height = this.rearLeftLeg.height + Math.sin(this.step*mov)/5 * leftRandom * 10;
 
-    this.x -= walkingSpeed/50 *sign;
-    let rightRandom = Math.max(1.2 * Math.random(), 1);
-    let leftRandom = Math.max(1.2 * Math.random(), 1);
-    this.rearLeftLeg._x = this.x + this.rearLeftLeg.x + Math.cos(this.step*mov*walkingSpeed)/5 * leftRandom * sign * -10;
-    this.rearLeftLeg._height = this.rearLeftLeg.height + Math.sin(this.step*mov*walkingSpeed)/5 * leftRandom * 10;
+    this.rearRightLeg._x = this.x + this.rearRightLeg.x - Math.sin(this.step*mov)/5 * rightRandom * 10 * sign - 2*sign;
+    this.rearRightLeg._height = this.rearRightLeg.height + Math.cos(this.step*mov)/5 * rightRandom * -10;
 
-    this.rearRightLeg._x = this.x + this.rearRightLeg.x - Math.sin(this.step*mov*walkingSpeed)/5 * rightRandom * 10 * sign - 2*sign;
-    this.rearRightLeg._height = this.rearRightLeg.height + Math.cos(this.step*mov*walkingSpeed)/5 * rightRandom * -10;
+    this.frontLeftLeg._x = this.x + this.frontLeftLeg.x + Math.cos(this.step*mov)/5 * leftRandom * sign * -10;
+    this.frontLeftLeg._height = this.frontLeftLeg.height + Math.sin(this.step*mov)/5 * leftRandom *10;
 
-    this.frontLeftLeg._x = this.x + this.frontLeftLeg.x + Math.cos(this.step*mov*walkingSpeed)/5 * leftRandom * sign * -10;
-    this.frontLeftLeg._height = this.frontLeftLeg.height + Math.sin(this.step*mov*walkingSpeed)/5 * leftRandom *10;
+    this.frontRightLeg._x = this.x + this.frontRightLeg.x - Math.sin(this.step*mov)/5 * rightRandom *sign * 10 + 5 -2*sign;
+    this.frontRightLeg._height = this.frontRightLeg.height + Math.cos(this.step*mov)/5 * rightRandom * -10;
 
-    this.frontRightLeg._x = this.x + this.frontRightLeg.x - Math.sin(this.step*mov*walkingSpeed)/5 * rightRandom *sign * 10 + 5 -2*sign;
-    this.frontRightLeg._height = this.frontRightLeg.height + Math.cos(this.step*mov*walkingSpeed)/5 * rightRandom * -10;
+    if(!this.walking && this._walkingSpeed == 0) return;
+    this.x -= this._walkingSpeed*mov*5 *sign;
   }
   draw (ctx, canvas) {
     this.objects.forEach(object => object.draw(ctx, canvas))
