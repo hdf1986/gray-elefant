@@ -46,6 +46,8 @@ class Elefant {
     this.step = 0;
     this.walkingSpeed = walkingSpeed || 30;
     this._walkingSpeed = walkingSpeed || 30;
+    this.verticalAcceleration = 0;
+    this.verticalSpeed = 0;
     if(!this.walking) this._walkingSpeed = 0;
   }
   start (ctx, canvas) {
@@ -243,10 +245,19 @@ class Elefant {
       this.frontRightLeg,
     ]
   }
+  jump (ctx, canvas) {
+    if(ctx.gravityPoint !== this.y) return;
+    this.verticalAcceleration = 1;
+    this.verticalSpeed = 1;
+    setTimeout(() => {
+      this.verticalAcceleration = 0
+    }, 200);
+  }
   update (ctx, canvas) {
     this.step += this._walkingSpeed;
+    this.y = Math.min(ctx.gravityPoint, this.y - this.verticalSpeed);
+    if(ctx.gravityPoint != this.y) this.verticalSpeed = this.verticalSpeed - 0.51 + this.verticalAcceleration;
     if(this.walking === true && this._walkingSpeed !== this.walkingSpeed) {
-      console.log(this._walkingSpeed)
       this._walkingSpeed = Math.min(this.walkingSpeed, this._walkingSpeed +
         Math.sqrt(this.walkingSpeed / 10));
     } else {

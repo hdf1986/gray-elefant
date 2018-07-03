@@ -33,33 +33,29 @@ const start = (ctx, canvas) => {
   ctx.addObject(floor);
   ctx.addObject(grayElefant);
   ctx.addObject(brownElefant);
+  ctx.gravityPoint = canvas.height * 0.8 - 80;
 
-
-
-  document.addEventListener("keydown", function (e) {
-    switch(e.which) {
-      case 37: // left
-        brownElefant.walking = true
-        brownElefant.mirror(true)
-      break;
-
-      case 38: // up
-      break;
-
-      case 39: // right
-
-        brownElefant.walking = true
-        brownElefant.mirror(false)
-      break;
-
-      case 40: // down
-      break;
-
-      default: return; // exit this handler for other keys
+  let map = {}; // You could also use an array
+  const onEvent = function(e){
+    e = e || event; // to deal with IE
+    map[e.keyCode] = e.type == 'keydown';
+    if(map['37']) {
+      brownElefant.walking = true
+      brownElefant.mirror(true)
     }
-  });
 
-  document.addEventListener("keyup", function () {
-    brownElefant.walking = false
-  });
+    if(map['39']) {
+      brownElefant.walking = true
+      brownElefant.mirror(false)
+    }
+    if(map['38']) {
+      brownElefant.jump(ctx, canvas)
+    }
+
+    if(e.type === 'keyup' && (e.keyCode === 39 || e.keyCode === 37)){
+      brownElefant.walking = false;
+    }
+  }
+  document.addEventListener("keydown", onEvent);
+  document.addEventListener("keyup", onEvent);
 }
