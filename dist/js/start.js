@@ -14,25 +14,34 @@ const start = (ctx, canvas) => {
     fillStyle: '#8f5833'
   });
 
-  ctx.grayElefant = new Elefant({
+  ctx.brownElefant = new Giraffe({
     x: -50,
     y: canvas.height * 0.8 - 80,
-    color: 'lightgrey',
-    walking: true
+    color: '#b87e59',
+    walking: true,
+    walkingSpeed: 50
   });
 
-  ctx.brownElefant = new Elefant({
+  ctx.grayElefant = new Elefant({
     x: canvas.width,
     y: canvas.height * 0.8 - 80,
-    color: '#b87e59',
+    color: 'lightgrey',
     mirrored: true,
     walking: true,
-    walkingSpeed: 30
+    walkingSpeed: 50
   });
+  ctx.giraffe = new Giraffe({
+    x: 100,
+    y: canvas.height * 0.8 - 80,
+    color: 'lightgrey',
+    walking: false,
+    walkingSpeed: 50
+  })
   ctx.addObject(ctx.grass);
   ctx.addObject(ctx.floor);
   ctx.addObject(ctx.grayElefant);
   ctx.addObject(ctx.brownElefant);
+  ctx.addObject(ctx.giraffe);
   ctx.gravityPoint = canvas.height * 0.8 - 80;
 
   

@@ -1,4 +1,5 @@
-class Elefant {
+
+class Giraffe {
   constructor ({x, y, color, mirrored, walking, walkingSpeed}) {
     this.x = x;
     this.y = y;
@@ -39,114 +40,15 @@ class Elefant {
       this.mirrored,
       this,
     {
-      x: 20,
-      y: -10,
+      x: 35,
+      y: -70,
       width: 47,
       height: 43,
-      borderRadius: 20,
+      borderRadius: 15,
       fill: true,
       stroke: 3,
-      fillStyle: this.color
-    }), mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 10,
-      y: -20,
-      width: 28,
-      height: 33,
-      borderRadius: 10,
-      fill: true,
-      stroke: 3,
-      fillStyle: this.color
-    }), 
-    mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 52,
-      y: 11,
-      width: 15,
-      height: 30,
-      fill: true,
-      stroke: {r: 3, br: 3, b: 3, bl: 3},
-      borderRadius: {br: 3},
-      fillStyle: this.color
-    }), 
-    mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 48,
-      y: 26,
-      width: 8,
-      height: 15,
-      fill: true,
-      stroke: {l: 3, bl: 3, b: 3, tl: 3, t: 3, tr: 3},
-      borderRadius: {bl: 3, tl: 3, tr: 3},
       fillStyle: this.color
     }),
-    mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 41,
-      y: 5,
-      width: 7,
-      height: 8,
-      borderRadius: {tl: 3, tr: 3},
-      fill: true,
-      stroke: 2,
-      fillStyle: 'white'
-    }), mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 46,
-      y: 11,
-      width: 1,
-      height: 1,
-      fill: true,
-      stroke: 3,
-      borderRadius: 1,
-      fillStyle: 'white'
-    }), mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 60,
-      y: 15,
-      width: 5,
-      height: 1,
-      fill: true,
-      stroke: 1,
-      borderRadius: 1,
-      fillStyle: 'black'
-    }), mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 60,
-      y: 20,
-      width: 5,
-      height: 1,
-      fill: true,
-      stroke: 1,
-      borderRadius: 1,
-      fillStyle: 'black'
-    }), mirroredRectangle(
-      this.mirrored,
-      this,
-    {
-      x: 60,
-      y: 25,
-      width: 5,
-      height: 1,
-      fill: true,
-      stroke: 1,
-      borderRadius: 1,
-      fillStyle: 'black'
-    })
     ];
     this.rearRightLeg = mirroredRectangle(
       this.mirrored,
@@ -200,10 +102,23 @@ class Elefant {
       borderRadius: {br: 3, bl: 3},
       fillStyle: this.color
     })
+    this.neck = mirroredRectangle(
+      this.mirrored,
+      this,
+    {
+      x: 37,
+      y: -38,
+      width: 15,
+      height: 40,
+      fill: true,
+      stroke: {r: 3, l: 3, t: 3, tl: 3, tr: 3, bl: 3, br: 3},
+      fillStyle: this.color
+    })
     this.objects = [
       this.rearLeftLeg,
       this.frontLeftLeg,
       this.body,
+      this.neck,
       ...this.head,
       this.rearRightLeg,
       this.frontRightLeg,

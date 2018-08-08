@@ -22,13 +22,13 @@ const update = (ctx, canvas) => {
       ctx.brownElefant.walking = false;
     }
   }
-  if(!ctx.freeWalk && ctx.brownElefant.x - 50 <= canvas.width / 2) {
+  if(ctx.grayElefant.x - 50 <= canvas.width / 2) {
+    ctx.grayElefant.walking = false;
+  } 
+  if(!ctx.freeWalk && ctx.brownElefant.x + 80 >= canvas.width / 2) {
     ctx.brownElefant.walking = false;
     ctx.freeWalk = true
     document.addEventListener("keydown", onEvent);
     document.addEventListener("keyup", onEvent);
-  } 
-  if(ctx.grayElefant.x + 80 >= canvas.width / 2) {
-    ctx.grayElefant.walking = false;
   } 
 }
